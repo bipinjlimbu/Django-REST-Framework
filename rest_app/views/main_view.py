@@ -28,3 +28,7 @@ def product_detail_view(request,id):
     except Product.DoesNotExist:
         return Response({'error':'Product not found'},status=status.HTTP_404_NOT_FOUND)
     
+    if request.method == 'GET':
+        serializer = ProductSerializer(product)
+        return Response(serializer.data,status=status.HTTP_200_OK)
+    
