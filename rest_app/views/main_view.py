@@ -11,4 +11,12 @@ def product_view(request):
         print(product)
         serializer = ProductSerializer(product,many=True)
         return Response(serializer.data,status=status.HTTP_200_OK)
- 
+    
+    if request.method == 'POST':
+        # title = request.data.get('title')
+        serializer = ProductSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({'msg':"Data posted successfully",'data':serializer.data},status=status.HTTP_201_CREATED)
+        else:
+            return Response({'error':serializer.errors},status=status.HTTP_400_BAD_REQUEST)
