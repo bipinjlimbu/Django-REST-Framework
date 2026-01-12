@@ -39,3 +39,7 @@ def product_detail_view(request,id):
             return Response({'msg':'Data updated successfully','data':serializer.data},status=status.HTTP_200_OK)
         else:
             return Response({'error':serializer.errors},status=status.HTTP_400_BAD_REQUEST)
+    
+    if request.method == 'DELETE':
+        product.delete()
+        return Response({'msg':'Product deleted successfully'},status=status.HTTP_204_NO_CONTENT)
