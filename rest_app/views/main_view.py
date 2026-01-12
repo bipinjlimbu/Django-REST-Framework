@@ -13,7 +13,6 @@ def product_view(request):
         return Response(serializer.data,status=status.HTTP_200_OK)
     
     if request.method == 'POST':
-        # title = request.data.get('title')
         serializer = ProductSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
