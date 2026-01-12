@@ -20,3 +20,11 @@ def product_view(request):
             return Response({'msg':"Data posted successfully",'data':serializer.data},status=status.HTTP_201_CREATED)
         else:
             return Response({'error':serializer.errors},status=status.HTTP_400_BAD_REQUEST)
+        
+@api_view(['GET','PUT','DELETE'])
+def product_detail_view(request,id):
+    try:
+        product = Product.objects.get(id=id)
+    except Product.DoesNotExist:
+        return Response({'error':'Product not found'},status=status.HTTP_404_NOT_FOUND)
+    
